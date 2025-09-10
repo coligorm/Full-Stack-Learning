@@ -1,9 +1,12 @@
 # Full-Stack-Learning
 Repo for upskilling Full Stack Development.
-~~ Currently using LinkedIn Learning to upskill Full Stack Engineering. ~~
-~~The following Learning Plan was created by LinkedIn:~~
+~~Currently using LinkedIn Learning to upskill Full Stack Engineering.
+The following Learning Plan was created by LinkedIn:~~
 
-# Learn JavaScript
+## Learning JavaScript [here](https://github.com/coligorm/Full-Stack-Learning/tree/main/JavaScriptLearning)
+
+Other resources I might follow in the future:
+- https://github.com/getify/You-Dont-Know-JS
 
 ## My Old Learning Plan (free subscription ended)
 ### Foundations of Web Development
