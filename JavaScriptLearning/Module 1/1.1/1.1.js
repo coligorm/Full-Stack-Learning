@@ -28,7 +28,7 @@ let birthday;
 
 // const cannot assign without a value, or reassign the const variable
 // Example what throws an error:
-const name = "John";
+const constName = "John";
 // name = "Jane";  // Error! Cannot reassign
 
 // but you can, reassign an Object's contents
@@ -158,4 +158,118 @@ for (let j = 0; j < 3; j++) {
 // 2. Use `let` for values that will be reassigned
 // 3. Demonstrate block scope with conditional logic
 // 4. Show the difference between `var` and `let` in a practical example
-// 5. Handle calculator state properly
+// 5. Handle calculator state 
+
+function createCalculator() {
+    console.log("=== Calculator with Proper Variable Scoping ===");
+    
+    // Use const for configuration that won't change
+    const OPERATIONS = {
+        ADD: '+',
+        SUBTRACT: '-',
+        MULTIPLY: '*',
+        DIVIDE: '/'
+    };
+    
+    // Use let for values that will change
+    let currentResult = 0;
+    let operationCount = 0;
+    
+    // Function to perform calculation
+    function calculate(operation, a, b) {
+        // Use const for the result since it won't change within this function
+        let result = 0;
+        
+        if (operation === OPERATIONS.DIVIDE) {
+            // Use let for block-scoped variables
+            let isValidDivision = b !== 0;
+            
+            if (isValidDivision) {
+                result = a / b;
+            } else {
+                console.log("Error: Division by zero!");
+                return null;
+            }
+        } else if (operation == OPERATIONS.MULTIPLY) {
+            if (b == 0) {
+                result = 0;
+            } else if (b == 1) {
+                result = a;
+            } else {
+                result = a * b;
+            }
+        } else if (operation == OPERATIONS.SUBTRACT) {
+            result = a - b;
+        } else if (operation == OPERATIONS.ADD) {
+            result = a + b;
+        } else {
+            console.log("Error: Invalid operation!");
+        }
+        
+        // Update operation counter
+        operationCount++;
+        
+        // Return result and update currentResult
+        currentResult = result
+        return result
+    }
+    
+    // Demo function showing var vs let difference
+    function demonstrateVarVsLet() {
+        console.log("\n=== Var vs Let Demonstration ===");
+        
+        // Show the classic var problem
+        console.log("With var (problematic):");
+        for (var i = 1; i <= 3; i++) {
+            setTimeout(function() {
+                console.log("var i =", i);  // What will this print?
+            }, 10);
+        }
+        
+        // Show let working correctly
+        console.log("With let (correct):");
+        for (let j = 1; j <= 3; j++) {
+            setTimeout(function() {
+                console.log("let j =", j);  // What will this print?
+            }, 20);
+        }
+    }
+    
+    // Test the calculator
+    function runCalculatorTests() {
+        // Test different operations
+        calculate(OPERATIONS.ADD, 10, 5);
+        calculate(OPERATIONS.SUBTRACT, 10, 3);
+        calculate(OPERATIONS.MULTIPLY, 4, 6);
+        calculate(OPERATIONS.DIVIDE, 20, 4);
+        calculate(OPERATIONS.DIVIDE, 10, 0);  // Error case
+        
+        console.log(`\nTotal operations performed: ${operationCount}`);
+        console.log(`Final result: ${currentResult}`);
+    }
+    
+    // Run all demonstrations
+    runCalculatorTests();
+    demonstrateVarVsLet();
+}
+
+// Execute the calculator
+createCalculator();
+
+// Notes on var vs let demo
+
+// Step-by-step breakdown:
+
+// var:
+
+// Loop runs immediately: i goes from 1 → 2 → 3 → 4 (loop exits when i=4)
+// setTimeout schedules functions but doesn't execute them yet
+// All scheduled functions share the same i variable (function-scoped)
+// 10ms later, functions execute: By now, the loop is done and i = 4
+// All three functions print the current value of i: which is 4
+
+// Why let works correctly:
+
+// let is block-scoped
+// Each iteration of the loop creates a new j variable
+// Each setTimeout callback captures its own copy of j
