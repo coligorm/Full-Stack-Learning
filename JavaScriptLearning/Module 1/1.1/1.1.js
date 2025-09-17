@@ -144,3 +144,18 @@ for (let j = 0; j < 3; j++) {
         console.log("let version:", j);
     }, 20);
 }
+
+
+// Integration Challenge
+
+// Challenge: Build a Simple Calculator with Proper Variable Scoping
+
+// Create a calculator that demonstrates proper variable management and scoping.
+// This builds on your previous calculator but focuses on variable declaration best practices.
+
+// Requirements:
+// 1. Use `const` for values that shouldn't change
+// 2. Use `let` for values that will be reassigned
+// 3. Demonstrate block scope with conditional logic
+// 4. Show the difference between `var` and `let` in a practical example
+// 5. Handle calculator state properly
