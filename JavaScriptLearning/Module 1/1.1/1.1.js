@@ -1,0 +1,146 @@
+/*
+Module 1.1: Variables and Memory Management
+
+Understanding JavaScript's Approach to Variable Declarations
+
+Why does JavaScript have three ways to declare variables when Python just has one?
+Ans: Python doesnt have variable declaration.
+    In JS, you state the type of each variable when you declare it
+
+Historical Context:
+JavaScript evolved over 25+ years.
+`var` was the original (1995),
+`let` and `const` were added in ES6 (2015) to fix `var`'s problems.
+Understanding all three helps you read existing code and avoid common pitfalls.
+*/
+
+// 1. Variable Declaration Types
+
+// var can redeclare, but not good practice
+var name = "John";
+var name = "Paul";
+
+// let cannot redeclare, but you can reassign
+let age = 30;
+age = 31;
+// You can declare without assigning a value
+let birthday;
+
+// const cannot assign without a value, or reassign the const variable
+// Example what throws an error:
+const name = "John";
+// name = "Jane";  // Error! Cannot reassign
+
+// but you can, reassign an Object's contents
+const person = { name: "Colin", age: 26 };
+person.age += 1;
+
+// 2. Scope Differences - The Critical Concept
+
+function myFunction() {
+    if (true) {
+        var x = 10;  // Available throughout the entire function
+    }
+    console.log(x);  // Works - prints 10
+}
+// However, let and const behave differently
+function myFunction() {
+    if (true) {
+        let x = 10;  // Only available within this {} block
+    }
+    console.log(x);  // Error! x is not defined
+}
+
+// 3. Hoisting - JavaScript's Weird Magic
+
+// Here it looks like we will get an error,
+// However, x prints as undefined
+// JS declares var first at the top of the scope before execution
+console.log(x);
+var x = 5;
+
+// so really, this is what happens:
+var x;           // Declaration hoisted
+console.log(x);  // undefined
+x = 5;           // Assignment stays here
+
+// NOTE: This does not work for let and const
+
+/*
+Best Practices
+
+The Rule of Thumb:
+1. Use `const` by default
+2. Use `let` when you need to reassign
+3. Never use `var` in new code
+
+Why?
+- `const` prevents accidental reassignment
+- `let` has predictable block scope
+- Both avoid hoisting confusion
+*/
+
+
+// Mini Challenge
+
+// Part 1: Hoisting Investigation
+
+// Try to predict what each code block will output, then run it:
+
+// Mystery 1
+console.log("Mystery 1:"); // Ans: outputs fine
+console.log(a);            // Ans: undefined
+var a = "Hello";
+console.log(a);            // Ans: outputs "Hello"
+
+// Mystery 2
+console.log("Mystery 2:");
+// console.log(b);  // Uncomment this line - what happens?
+let b = "World";    // Ans: An error occurs as b has not been declared
+console.log(b);
+
+// Mystery 3
+console.log("Mystery 3:");
+const c = "JavaScript";
+console.log(c);
+// c = "Python";  // Uncomment this line - what happens?
+                  // Ans: Error trying to reassign a const
+
+// Part 2: Scope Boundaries
+
+function scopeTest() {
+    console.log("=== Scope Test ===");
+    
+    if (true) {
+        var x = "function scoped";
+        let y = "block scoped";
+        const z = "also block scoped";
+    }
+    
+    console.log("Can access x:", x);  // What happens? // Ans: Works
+    // console.log("Can access y:", y);  // Uncomment - what happens? // Ans: Error
+    // console.log("Can access z:", z);  // Uncomment - what happens? // Ans: Error
+}
+
+scopeTest();
+
+// Part 3: The Loop Problem
+
+console.log("=== Loop Problem Demo ===");
+
+// Version 1 - var
+console.log("With var:");
+for (var i = 0; i < 3; i++) {
+    // Simulate async behavior with setTimeout
+    setTimeout(function() {
+        console.log("var version:", i);
+    }, 10);
+}
+
+// Version 2 - let
+console.log("With let:");
+for (let j = 0; j < 3; j++) {
+    setTimeout(function() {
+        console.log("let version:", j);
+    }, 20);
+}
