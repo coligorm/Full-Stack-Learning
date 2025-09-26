@@ -207,3 +207,28 @@ Take away points:
 - Only function calls create new this contexts
 
 */
+
+
+// 5. Closures - Functions that remember
+
+function createCounter() {
+    let count = 0; // Private variable
+
+    return function() {
+        count ++;
+        return count;
+    }
+}
+
+const counter1 = createCounter();
+const counter2 = createCounter();
+
+console.log("Chapter 5 Output:")
+console.log(counter1()); // 1
+console.log(counter1()); // 2
+console.log(counter2()); // 1 (separate counter!)
+console.log(counter1()); // 3
+
+// What's Happening?
+// The inner function "closes over" the `count` variable, keeping it alive even after `createCounter` finishes.
+
