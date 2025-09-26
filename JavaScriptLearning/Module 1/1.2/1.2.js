@@ -91,3 +91,119 @@ const times3 = createMultiplier(3);
 console.log("=> As Return Functions")
 console.log(times2(5)); // 5 x 2 = 10
 console.log(times3(5)); // 5 x 3 = 15
+
+
+// 4. The Mysterious `this` keyword
+
+// The core concept of `this` is about HOW the function is called
+// and not WHERE it is defined.
+console.log("Chapter 4 - `this` keyword Output:")
+const person = {
+    name: "John",
+    greet: function() {
+        console.log("Hello, I'm " + this.name);
+    }
+};
+
+person.greet();
+
+// Extracting the greet function inside person to the const greetFunction
+const greetFunction = person.greet;
+greetFunction();
+// However, we get "Hello, I'm undefined", as greetFunction has no knowledge of the person object
+// `this.name` tries to access `window.name` or `undefined.name`
+
+// Whereas,
+person.greet();
+// assigns this = person, and thus can access the name "John"
+
+// If we add another person...
+const person2 = {
+    name: "Jane",
+    greet: person.greet  // Here, we access the greet function from the person (John), but the this is now related to "Jane"
+};
+
+person.greet();  // "Hello, I'm John"  (this = person1)
+person2.greet();  // "Hello, I'm Jane"  (this = person2)
+
+// Same function, different this!
+
+console.log("Demonstrating Arrow Functions and `this`:")
+// Arrow functions inherit `this` from their surrounding context.
+
+const person3 = {
+    name: "Jill",
+    
+    // Regular function: this depends on how it's called
+    greet: function() {
+        console.log("Regular function:", this.name);
+    },
+    
+    // Arrow function: this comes from surrounding context
+    arrowGreet: () => {
+        console.log("Arrow function:", this.name);  // this = global object!
+    }
+};
+
+person3.greet();      // "Regular function: John"
+person3.arrowGreet(); // "Arrow function: undefined" (this = global)
+
+// You might think: "`this` should be person because the arrow function is inside person"
+
+// However, below is a representation of what is happening:
+
+// 1. We're at the global/module level
+console.log("Global this:", this);  // undefined (in Node.js) or window (in browser)
+
+// 2. The arrow function is created HERE, at the global level
+const arrowFunction = () => {
+    console.log("Arrow function this:", this);  // Inherits from global scope
+};
+
+// 3. Then we assign it to the object property
+const anotherPerson = {
+    name: "Jimmy",
+    arrowGreet: arrowFunction  // Just assigning the function, not changing its this
+};
+
+console.log(anotherPerson.arrowGreet()) // undefined, as the arrow function's `this` was created at global scope
+
+console.log("Correctly working Arrow Function");
+const workingPerson = {
+    name: "Jane",
+    
+    // Arrow function defined at global level
+    arrowGreet: () => {
+        console.log("Arrow (global):", this?.name || "undefined");
+    },
+    
+    // Regular function that contains arrow functions
+    demonstrateArrowContext: function() {
+        console.log("Regular method:", this.name);
+        
+        // Arrow function defined INSIDE the regular function
+        const innerArrow = () => {
+            console.log("Arrow (inside method):", this.name);  // this = person!
+        };
+        
+        innerArrow();
+        
+        // Nested example
+        setTimeout(() => {
+            console.log("Arrow (in setTimeout):", this.name);  // this = person!
+        }, 100);
+    }
+};
+
+workingPerson.arrowGreet();              // "Arrow (global): undefined"
+workingPerson.demonstrateArrowContext(); // Shows the difference
+
+/*
+Take away points:
+
+- When JavaScript sees an arrow function, it immediately captures the current value of this
+- At the global/module level, this is usually undefined (Node.js) or window (browser)
+- Object literal syntax { } doesn't create a new this context
+- Only function calls create new this contexts
+
+*/
