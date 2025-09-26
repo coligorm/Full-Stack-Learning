@@ -53,3 +53,33 @@ console.log(calculator.add(5, 3));
 
 // This is similar to function pointers in C or method references in Java, but more flexible.
 
+
+// 3. Higher-Order Functions
+
+// Are functions that take other functions as arguments or return functions
+
+// As Arguments Example:
+function processNumbers(nums, ops) {
+    return nums.map(ops)
+}
+
+const double = x => x * 2;
+const square = x => x * x;
+
+const numbers = [1, 2, 3, 4, 5];
+
+console.log(processNumbers(numbers, double)); // [2, 4, 6, 8]
+console.log(processNumbers(numbers, square)); // [1, 4, 9, 16]
+
+// Returning Functions Example:
+function createMultiplier(factor) {
+    return function(number) {
+        return number * factor;
+    };
+}
+
+const times2 = createMultiplier(2);
+const times3 = createMultiplier(3);
+
+console.log(times2(5)); // 5 x 2 = 10
+console.log(times3(5)); // 5 x 3 = 15
