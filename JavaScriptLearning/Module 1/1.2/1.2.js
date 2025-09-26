@@ -28,3 +28,28 @@ const greet = (name) => {
 }
 // shorter version for more simple function returns
 const greet = name => "Hello, " + name;
+
+
+// 2. Functions as Values
+
+// We can use functions as values in mnay different ways to create powerful programs
+
+// Store funtions as variable
+const add = (a, b) => a + b;
+const mul = (a, b) => a * b;
+
+// Store functions in arrays:
+const operations = [add, mul];
+
+// Store functions in objects
+const calculator = {
+    add: (a, b) => a + b,
+    mul: (a, b) => a * b
+};
+
+// Call functions from these structures
+console.log(operations[0](5, 3));
+console.log(calculator.add(5, 3));
+
+// This is similar to function pointers in C or method references in Java, but more flexible.
+
