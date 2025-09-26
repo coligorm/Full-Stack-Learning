@@ -10,25 +10,30 @@ This opens up powerful programming patterns
 
 // Function Declarations:
 // Hoisted, good for main functions
-function greet(name) {
+function greet1(name) {
     return "Hello, " + name;
 }
 
 // Function Expression (Functions as Values):
 // Not hoisted, good for conditional function creation
-const greet = function(name) {
+const greet2 = function(name) {
     return "Hello, " + name;
 }
 
 // Arrow Functions (Modern, Concise)
 // More concise, modern approach that is similar syntax when using React
 // Handles `this` differently
-const greet = (name) => {
+const greet3 = (name) => {
     return "Hello, " + name;
 }
 // shorter version for more simple function returns
-const greet = name => "Hello, " + name;
+const greet4 = name => "Hello, " + name;
 
+console.log("Chapter 1 Output:")
+console.log(greet1("Aaron"));
+console.log(greet2("Betty"));
+console.log(greet3("Colin"));
+console.log(greet4("Dolly"));
 
 // 2. Functions as Values
 
@@ -48,8 +53,9 @@ const calculator = {
 };
 
 // Call functions from these structures
+console.log("Chapter 2 Output:")
 console.log(operations[0](5, 3));
-console.log(calculator.add(5, 3));
+console.log(calculator.mul(5, 3));
 
 // This is similar to function pointers in C or method references in Java, but more flexible.
 
@@ -68,6 +74,7 @@ const square = x => x * x;
 
 const numbers = [1, 2, 3, 4, 5];
 
+console.log("Chapter 3 Output:\n=> Functions as Arugments")
 console.log(processNumbers(numbers, double)); // [2, 4, 6, 8]
 console.log(processNumbers(numbers, square)); // [1, 4, 9, 16]
 
@@ -81,5 +88,6 @@ function createMultiplier(factor) {
 const times2 = createMultiplier(2);
 const times3 = createMultiplier(3);
 
+console.log("=> As Return Functions")
 console.log(times2(5)); // 5 x 2 = 10
 console.log(times3(5)); // 5 x 3 = 15
