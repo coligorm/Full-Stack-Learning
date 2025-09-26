@@ -232,3 +232,74 @@ console.log(counter1()); // 3
 // What's Happening?
 // The inner function "closes over" the `count` variable, keeping it alive even after `createCounter` finishes.
 
+// Mini Challenge
+
+// Part 1: Different Function Styles:
+// Declaration, Expression, Arrow function (full), Arrow function(short)
+console.log("Mini Challenge: Part 1");
+
+// Function declaration
+function deductFive(num) {
+    return num - 5;
+}
+
+// Expression
+const doubleNumber = function(num) {
+    return num * 2;
+};
+
+// Arrow Function (Full)
+const subtract = (a, b) => {
+    return a - b;
+};
+
+// Arrow Function (short)
+const divide = (a, b) => a / b;
+
+console.log(deductFive(10));
+console.log(doubleNumber(5));
+console.log(subtract(10, 5));
+console.log(divide(10, 5));
+
+// Part 2: Higher-Order Function Practice
+// Create a function that takes an operation and returns a calculator
+console.log("Mini Challenge: Part 2");
+
+function createAnotherCalculator(operation) {
+    return function(a, b) {
+        return operation(a, b)
+    }
+}
+
+const addNums = (a, b) => a + b;
+const subNums = (a, b) => a - b;
+const mulNums = (a, b) => a * b;
+const divNums = (a, b) => a / b;
+
+const adder = createAnotherCalculator(addNums)
+const suber = createAnotherCalculator(subNums)
+const muler = createAnotherCalculator(mulNums)
+const diver = createAnotherCalculator(divNums)
+
+console.log(adder(3, 2));
+console.log(suber(3, 2));
+console.log(muler(3, 2));
+console.log(diver(3, 2));
+
+console.log(adder(suber(3, 2), muler(3, 2)))
+
+// Part 3: Closure Practise
+// Create a function that remembers the name
+
+function createPersonalGreeter(name) {
+
+    return function(greeting) {
+        return greeting + ' World, ' + name + ' here!'
+    }
+}
+
+const johnGreeter = createPersonalGreeter("John");  // the johnGreeter const remembers "John" is assigned to name
+const janeGreeter = createPersonalGreeter("Jane");  // Even though the createPersonalGreeter is called again with a different name
+
+console.log(johnGreeter("Hello"));
+console.log(janeGreeter("Hi"));
