@@ -189,9 +189,10 @@ const workingPerson = {
         innerArrow();
         
         // Nested example
-        setTimeout(() => {
-            console.log("Arrow (in setTimeout):", this.name);  // this = person!
-        }, 100);
+        // Commented out timed example due to console.log output annoyance
+        // setTimeout(() => {
+        //     console.log("Arrow (in setTimeout):", this.name);  // this = person!
+        // }, 100);
     }
 };
 
@@ -318,4 +319,74 @@ Requirements:
 4. Demonstrate function composition
 5. Build a flexible problem-solving framework
 */
+console.log("\n\n=== Integration Challenge ===\n\n")
 
+// 1.
+// Higher order function to create specfic function checkers
+function createChecker(condition) {
+    return function(n) {
+        return condition(n)
+    }
+}
+
+// Using the higher order function to create multiple checkers
+const isMulof3 = createChecker(n => n % 3 === 0);
+const isMulof5 = createChecker(n => n % 5 === 0);
+
+// Test
+console.log(isMulof3(6));
+console.log(isMulof3(7));
+console.log(isMulof5(10));
+console.log(isMulof5(11));
+
+// 2. Closure
+function createResultTracker() {
+    // Private state for tracking results
+    let results = [];
+    let totalTime = 0;
+
+    return {
+        // Method to add a result
+        addResult: function(problemNumber, answer, timeMs) {
+            results.push({
+                problem: problemNumber,
+                answer: answer,
+                time: timeMs
+            });
+            console.log(`Problem ${problemNumber}: ${answer} (${timeMs}ms)`);
+        },
+        
+        // Method to get summary
+        getSummary: () => {
+            console.log(`Total Problems solved: ${results.length}`);
+            results.forEach(r => {
+                console.log(`Problem ${r.problemNumber}: ${r.answer}`);
+            });
+        }
+    };
+}
+
+
+const isEven = n => n % 2 == 0;
+const add2nums = (a, b) => a + b;
+
+// Creting problems for Euler Problems
+// Problem 1
+// If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6, and 9. The sum of these multiples is 23.
+
+// Find the sum of all the multiples of 3 or 5 below 1000.
+
+function solveProblem1() {
+    const limit = 1000;
+    let sum = 0;
+
+    for (let index = 1; index < limit; index++) {
+        if (isMulof3(index) || isMulof5(index)) {
+            sum = add2nums(sum, index);
+        }
+    }
+
+    return sum
+}
+
+console.log(solveProblem1());
