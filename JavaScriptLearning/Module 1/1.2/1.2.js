@@ -303,3 +303,19 @@ const janeGreeter = createPersonalGreeter("Jane");  // Even though the createPer
 
 console.log(johnGreeter("Hello"));
 console.log(janeGreeter("Hi"));
+
+/*
+Integration Challeng (25 minutes)
+
+Challenge: Build a Project Euler Problem Solver Using Function Patterns
+
+Create a system that demonstrates all the function concepts while solving mathematical problems.
+
+Requirements:
+1. Use different function declaration styles appropriately
+2. Create higher-order functions for common operations
+3. Use closures to maintain state
+4. Demonstrate function composition
+5. Build a flexible problem-solving framework
+*/
+
